@@ -12,11 +12,13 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token")
-        if (token) {
+        if (token && typeof window !== "undefined") {
             config.headers.Authorization = `Bearer ${token}`
             console.log("🔑 Adding auth token to request:", config.url)
         } else {
             console.log("🔓 No auth token for request:", config.url)
+            // Remove Authorization header if no token
+            delete config.headers.Authorization
         }
         return config
     },

@@ -36,11 +36,16 @@ export default function BestSellers() {
       // Try bestsellers endpoint first
       let response
       try {
-        response = await apiClient.get("/api/perfumes/bestsellers")
+        // Don't send auth headers for public endpoints
+        response = await apiClient.get("/api/perfumes/bestsellers", {
+          headers: {}
+        })
       } catch (bestsellerError) {
         console.log("Bestsellers endpoint failed, trying all perfumes:", bestsellerError)
         // Fallback to all perfumes
-        response = await apiClient.get("/api/perfumes")
+        response = await apiClient.get("/api/perfumes", {
+          headers: {}
+        })
       }
 
       const allPerfumes = response.data || []

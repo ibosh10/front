@@ -86,8 +86,9 @@ function ProductsContent() {
 
     try {
       setLoading(true)
-      const response = await apiClient.get(`/api/perfumes/search`, {
+      const response = await apiClient.get("/api/perfumes/search", {
         params: { name: searchQuery },
+        headers: {}
       })
       setPerfumes(response.data || [])
     } catch (error: any) {

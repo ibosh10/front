@@ -43,7 +43,10 @@ export default function RatingSection({ perfumeId, canRate }: RatingSectionProps
 
   const fetchRatings = async () => {
     try {
-      const response = await apiClient.get(`/api/ratings/perfume/${perfumeId}`)
+      // Don't send auth headers for public endpoints
+      const response = await apiClient.get(`/api/ratings/perfume/${perfumeId}`, {
+        headers: {}
+      })
       setRatings(response.data)
     } catch (error) {
       console.error("Failed to fetch ratings:", error)

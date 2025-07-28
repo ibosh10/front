@@ -61,7 +61,10 @@ export default function ProductDetailPage() {
 
   const fetchPerfume = async () => {
     try {
-      const response = await apiClient.get(`/api/perfumes/${params.id}`)
+      // Don't send auth headers for public endpoints initially
+      const response = await apiClient.get(`/api/perfumes/${params.id}`, {
+        headers: {}
+      })
       setPerfume(response.data)
       setIsFavorite(response.data.favorite)
     } catch (error) {
@@ -73,7 +76,10 @@ export default function ProductDetailPage() {
 
   const fetchSimilarPerfumes = async () => {
     try {
-      const response = await apiClient.get(`/api/perfumes/${params.id}/similar`)
+      // Don't send auth headers for public endpoints
+      const response = await apiClient.get(`/api/perfumes/${params.id}/similar`, {
+        headers: {}
+      })
       setSimilarPerfumes(response.data)
     } catch (error) {
       console.error("Failed to fetch similar perfumes:", error)

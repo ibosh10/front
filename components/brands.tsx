@@ -25,7 +25,10 @@ export default function Brands() {
     const fetchBrands = async () => {
         try {
             setLoading(true)
-            const response = await apiClient.get("/api/brands")
+            // Don't send auth headers for public endpoints
+            const response = await apiClient.get("/api/brands", {
+                headers: {}
+            })
             setBrands(response.data || [])
         } catch (error) {
             console.error("Failed to fetch brands:", error)

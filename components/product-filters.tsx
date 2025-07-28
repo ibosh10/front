@@ -52,7 +52,10 @@ export default function ProductFilters({ onFilterChange }: ProductFiltersProps) 
 
   const fetchCategories = async () => {
     try {
-      const response = await apiClient.get("/api/categories")
+      // Don't send auth headers for public endpoints
+      const response = await apiClient.get("/api/categories", {
+        headers: {}
+      })
       setCategories(response.data || [])
     } catch (error) {
       console.error("Failed to fetch categories:", error)

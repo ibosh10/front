@@ -24,7 +24,10 @@ export default function Categories() {
   const fetchCategories = async () => {
     try {
       setLoading(true)
-      const response = await apiClient.get("/api/categories")
+      // Don't send auth headers for public endpoints
+      const response = await apiClient.get("/api/categories", {
+        headers: {}
+      })
       setCategories(response.data || [])
     } catch (error) {
       console.error("Failed to fetch categories:", error)

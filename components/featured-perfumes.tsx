@@ -36,11 +36,16 @@ export default function FeaturedPerfumes() {
       // Try featured endpoint first
       let response
       try {
-        response = await apiClient.get("/api/perfumes/featured")
+        // Don't send auth headers for public endpoints
+        response = await apiClient.get("/api/perfumes/featured", {
+          headers: {}
+        })
       } catch (featuredError) {
         console.log("Featured endpoint failed, trying all perfumes:", featuredError)
         // Fallback to all perfumes
-        response = await apiClient.get("/api/perfumes")
+        response = await apiClient.get("/api/perfumes", {
+          headers: {}
+        })
       }
 
       const allPerfumes = response.data || []
